@@ -1,0 +1,117 @@
+<!doctype html>
+
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+	crossorigin="anonymous">
+<link rel="canonical"
+	href="https://getbootstrap.com/docs/5.2/examples/cover/">
+<link href="/css/mystyle.css" rel="stylesheet">
+<title>login</title>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+	crossorigin="anonymous"></script>
+
+</head>
+<body class="text-bg-dark">
+
+	<section>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-6">
+
+					<div class="px-5 ms-xl-4">
+						<!-- <i class="fas fa-crow fa-2x me-3 pt-5 mt-xl-4"></i> <span
+							class="h1 fw-bold mb-0">R|3</span> -->
+						<img src="/images/logo_museo.png" alt="logo" width="40"
+							height="40" class="float-md-start mb-0 mt-2">
+					</div>
+
+					<!-- left content -->
+					<div
+						class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5 justify-content-center">
+
+						<form style="width: 23rem;" th:action="@{/login}" method="POST"
+							th:object="${credenziali}">
+
+							<h2 class="fw-normal mb-3 pb-3">Login</h2>
+
+							<!-- Username -->
+							<div th:if="${#fields.hasErrors()}">
+								<div class="form-floating mb-4 text-black">
+									<input type="text" id="usernameInput"
+										class="form-control form-control-lg is-invalid"
+										th:field="*{username}" th:placeholder="username" required />
+									<label class="form-label" for="usernameInput">Username</label>
+								</div>
+							</div>
+							<div th:unless="${#fields.hasErrors()}">
+								<div class="form-floating mb-4 text-black">
+									<input type="text" id="usernameInput"
+										class="form-control form-control-lg" th:field="*{username}"
+										th:placeholder="username" required /> <label
+										class="form-label" for="usernameInput">Username</label>
+								</div>
+							</div>
+
+							<!-- Password -->
+							<div th:if="${#fields.hasErrors()}">
+								<div class="form-floating mb-4 text-black">
+									<input type="password" id="passwordInput"
+										class="form-control form-control-lg is-invalid"
+										th:field="*{password}" placeholder="password" required /> <label
+										class="form-label" for="passwordInput">Password</label>
+									<div class="invalid-feedback" th:text="#{credenziali.notFound}">Error!</div>
+								</div>
+							</div>
+							<!-- Password -->
+							<div th:unless="${#fields.hasErrors()}">
+								<div class="form-floating mb-4 text-black">
+									<input type="password" id="passwordInput"
+										class="form-control form-control-lg" th:field="*{password}"
+										placeholder="password" required /> <label class="form-label"
+										for="passwordInput">Password</label>
+								</div>
+							</div>
+
+							<div th:if="${#fields.hasErrors()}" class="invalid-feedback"
+								th:text="#{credenziali.notFound}">Error!</div>
+
+							<div class="pt-0 mb-3">
+								<button class="btn btn-outline-light" type="submit">Login</button>
+							</div>
+							<div class="pt-3">
+								<p>
+									Non hai un account? <a th:href="@{/registerUser}"
+										class="link-warning">Registrati qui</a>
+								</p>
+							</div>
+							<div class="pt-3">
+								<p class="small mb-5 pb-lg-2">
+									<a class="text-muted" th:href="@{/}">Torna alla home
+										page</a>
+								</p>
+							</div>
+						</form>
+					</div>
+
+
+				</div>
+				<!-- right content -->
+				<div class="col-sm-6 px-0 d-none d-sm-block">
+					<img src="/images/DaVinci-dama.jpg" alt="Login image"
+						class="w-100 vh-100"
+						style="object-fit: cover; object-position: left;">
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>

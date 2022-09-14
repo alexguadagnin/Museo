@@ -1,0 +1,174 @@
+<!doctype html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+	crossorigin="anonymous"> 
+<link rel="canonical"
+	href="https://getbootstrap.com/docs/5.2/examples/cover/">
+<link href="/css/mystyle.css" rel="stylesheet">
+
+<title>Roma Tre Museum</title>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+	crossorigin="anonymous"></script>
+
+<!-- Custom styles for this template -->
+</head>
+<body class="d-flex h-100 text-center text-bg-dark"
+	style="background-image: url('/images/Caravaggio-SanGirolamo.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+
+	<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+		<div th:replace="fragments/intestazione.html :: header"></div>
+
+		<div class="mask" style="background-color: rgba(0, 0, 0, 0.6)">
+			<main class="px-3">
+				<h2 th:text="'Benvenuto ' + ${utente?.nome}">...</h2>
+				<hr class="hr-light my-4">
+				<p class="lead">Roma Tre Museum è un museo virtuale, attraverso
+					il quale è possibile navigare tra molteplici opere.</p>
+				<p class="lead fst-italic">Attraverso il pulsante in basso è
+					possibile selezionare la modalità con cui visitare la galleria.</p>
+				<p class="lead">
+					<button class="btn btn-outline-light" type="button"
+						data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
+						aria-controls="staticBackdrop">Visita galleria</button>
+				</p>
+			</main>
+		</div>
+
+		<!-- Offcanvas -->
+		<div class="offcanvas offcanvas-start text-bg-dark"
+			data-bs-backdrop="static" tabindex="-1" id="staticBackdrop"
+			aria-labelledby="staticBackdropLabel">
+			<div class="offcanvas-header">
+				<h3 class="offcanvas-title" id="staticBackdropLabel">Modalità
+					di visualizzazione</h3>
+				<button type="button" class="btn-close bg-light"
+					data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+
+				<div>
+					<button type="button" class="btn bg-transparent text-white"
+						data-bs-toggle="modal" data-bs-target="#modalCenterAutore">
+						<p class="lead">Per Autore</p>
+					</button>
+				</div>
+
+				<div>
+					<button type="button" class="btn bg-transparent text-white"
+						data-bs-toggle="modal" data-bs-target="#modalCenterAnno">
+						<p class="lead">Per Anno</p>
+					</button>
+				</div>
+				<div>
+					<button type="button" class="btn bg-transparent text-white"
+						data-bs-toggle="modal" data-bs-target="#modalCenterCuratore">
+						<p class="lead">Per Curatore</p>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal Autore -->
+		<div class="modal fade" id="modalCenterAutore"
+			data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+			aria-labelledby="modalCenterLabelAutore">
+			<div
+				class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+				<div class="modal-content text-bg-dark">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modalCenterLabelAutore">Seleziona
+							Autore</h5>
+						<button type="button" class="btn-close bg-light"
+							data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div th:each="autore : ${autoriVisualizzabili}">
+							<!-- Contenuto Modal Autore -->
+							<a th:href="@{'/visualizzaPerAutore' + '/' + ${autore.id}}"
+								class="btn bg-transparent text-white lead"
+								th:text="${autore.nome} + ' ' + ${autore.cognome}">Autore</a>
+							<hr class="hr-light my-4">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<!-- footer modal -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal Anno -->
+		<div class="modal fade" id="modalCenterAnno" data-bs-backdrop="static"
+			data-bs-keyboard="false" tabindex="-1"
+			aria-labelledby="modalCenterLabelAnno">
+			<div
+				class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+				<div class="modal-content text-bg-dark">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modalCenterLabelAnno">Seleziona
+							Anno</h5>
+						<button type="button" class="btn-close bg-light"
+							data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div th:each="anno : ${anniVisualizzabili}">
+							<!-- Contenuto Modal Anno -->
+							<a class="btn bg-transparent text-white lead"
+								th:href="@{'/visualizzaPerAnno' + '/' + ${anno}}"
+								th:text="${anno}">1999</a>
+							<hr class="hr-light my-4">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<!-- footer modal -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal Curatore -->
+		<div class="modal fade" id="modalCenterCuratore"
+			data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+			aria-labelledby="modalCenterLabelCuratore">
+			<div
+				class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+				<div class="modal-content text-bg-dark">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modalCenterLabelCuratore">Seleziona
+							Curatore</h5>
+						<button type="button" class="btn-close bg-light"
+							data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div th:each="curatore : ${curatoriVisualizzabili}">
+							<!-- Contenuto Modal Curatore -->
+							<a th:href="@{'/visualizzaPerCuratore' + '/' + ${curatore.id}}"
+								class="btn bg-transparent text-white lead"
+								th:text="${curatore.nome} + ' ' + ${curatore.cognome}">Curatore</a>
+							<hr class="hr-light my-4">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<!-- footer modal -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div th:replace="fragments/footer.html :: footer"></div>
+	</div>
+
+</body>
+</html>

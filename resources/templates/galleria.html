@@ -1,0 +1,102 @@
+<!doctype html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+	crossorigin="anonymous">
+<link rel="canonical"
+	href="https://getbootstrap.com/docs/5.2/examples/cover/">
+<link href="/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+	crossorigin="anonymous">
+<link href="/css/mystyle.css" rel="stylesheet">
+<title>Roma Tre Museum</title>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+	crossorigin="anonymous"></script>
+
+<style>
+.view {
+	height: 100vh;
+}
+
+.top-nav-collapse {
+	background-color: #78909c !important;
+}
+
+.navbar:not(.top-nav-collapse) {
+	background: transparent !important;
+}
+
+@media ( max-width : 991px) {
+	.navbar:not(.top-nav-collapse) {
+		background: #78909c !important;
+	}
+}
+
+
+</style>
+
+
+<!-- Custom styles for this template -->
+</head>
+<body class="text-center text-bg-dark p-3">
+	<!-- Main navigation -->
+	<header class="mb-auto">
+			<div class="text-center fixed-top">
+				<!-- <h3 class="float-md-start mb-0 ms-4">R|3</h3> -->
+				<img src="/images/logo_museo.png" alt="logo" width="40" height="40"
+					class="float-md-start mb-0"> 
+				<nav class="nav nav-masthead justify-content-center">
+					<a class="nav-link fw-bold py-1 px-0 active" aria-current="page"
+						th:href="@{/default}">Home</a> <a
+						class="nav-link fw-bold py-1 px-0" th:href="@{/logout}">Logout</a> <a
+						class="nav-link fw-bold py-1 px-0" href="#">Contact</a>
+				</nav>
+			</div>
+		</header>
+	<!-- Navbar -->
+	<!-- Full Page Intro -->
+	<div th:each="opera : ${opere}">
+		<div class="view jarallax">
+
+			<img class="view img-fluid shadow-lg" th:src="@{'/images/' + ${opera.id} + '.jpg'}"
+				alt="...">
+
+		</div>
+
+		<!-- Full Page Intro -->
+
+		<!-- Main navigation -->
+		<!--Main Layout-->
+
+		<div class="container">
+			<!--Grid row-->
+			<div class="row py-5">
+				<!--Grid column-->
+				<div class="col-md-12 text-center">
+					<p class="lead" th:text="${opera.descrizione}">Descrizione</p>
+
+				</div>
+				<!--Grid column-->
+			</div>
+			<!--Grid row-->
+		</div>
+
+	</div>
+	<!--Main Layout-->
+	<!-- SCRIPT -->
+
+	<script>
+		new WOW().init();
+	</script>
+
+	<div th:replace="fragments/footer.html :: footer"></div>
+
+</body>
+</html>

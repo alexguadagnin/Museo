@@ -1,0 +1,151 @@
+<!doctype html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+	crossorigin="anonymous">
+<link rel="canonical"
+	href="https://getbootstrap.com/docs/5.2/examples/cover/">
+
+<link href="/css/mystyle.css" rel="stylesheet">
+<title>Roma Tre Museum Admin</title>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+	crossorigin="anonymous"></script>
+
+<style>
+@media ( min-width : 768px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+</style>
+
+
+<!-- Custom styles for this template -->
+</head>
+<body class="d-flex h-100 text-center text-bg-dark"
+	style="background-image: url('/images/kandinsky.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+
+	<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+		
+		<div th:replace="fragments/intestazione.html :: header"></div>
+
+		<main class="px-3">
+			<!-- Alerts -->
+			<!-- Alert modifica -->
+			<div th:if="${statoModificaSuccesso}">
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<strong th:text="#{modifica.successo}">Messaggio esito</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="alert"
+						aria-label="Close"></button>
+				</div>
+			</div>
+			<!-- Alert cancellazione -->
+			<div th:if="${statoCancellazioneSuccesso}">
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<strong th:text="#{cancellazione.successo}">Messaggio
+						esito</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="alert"
+						aria-label="Close"></button>
+				</div>
+			</div>
+
+			<div class="d-flex justify-content-center">
+				<div class="card mb-3 w-50 text-bg-dark">
+					<div class="row g-0">
+						<div class="col-md-4">
+							<img src="images/opera.png" class="img-fluid rounded-start"
+								alt="Collezioni">
+						</div>
+						<div class="col-md-8">
+							<div class="card-body">
+								<h5 class="card-title">Tool collezioni</h5>
+								<p class="card-text">
+									<button class="btn btn-outline-light" type="button"
+										data-bs-toggle="offcanvas"
+										data-bs-target="#offcanvasBottomCollezione"
+										aria-controls="offcanvasBottom">Modifica Collezione</button>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="d-flex justify-content-center">
+				<div class="card mb-3 w-50 text-bg-dark">
+					<div class="row g-0">
+						<div class="col-md-4">
+							<img src="images/collezione.png" class="img-fluid rounded-start"
+								alt="Opere">
+						</div>
+						<div class="col-md-8">
+							<div class="card-body">
+								<h5 class="card-title">Tool opere</h5>
+								<p class="lead card-text">
+									<button class="btn btn-outline-light" type="button"
+										data-bs-toggle="offcanvas"
+										data-bs-target="#offcanvasBottomOpere"
+										aria-controls="offcanvasBottom">Modifica Opera</button>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Offcanvas Collezioni -->
+			<div class="offcanvas offcanvas-bottom text-bg-dark" tabindex="-1"
+				id="offcanvasBottomCollezione"
+				aria-labelledby="offcanvasBottomLabel">
+				<div class="offcanvas-header text-bg-dark">
+					<h5 class="offcanvas-title" id="offcanvasBottomLabel">Modifica
+						collezione</h5>
+					<button type="button" class="btn-close bg-light"
+						data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
+				<!-- Lista Opere -->
+				<div class="offcanvas-body small">
+					<div th:each="collezione : ${collezioni}">
+						<a
+							th:href="@{'/admin/modificaCollezione' + '/' + ${collezione.id}}"
+							class="btn bg-transparent text-white lead"
+							th:text="${collezione.id}">Id-collezione</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Offcanvas Opere -->
+			<div class="offcanvas offcanvas-bottom text-bg-dark" tabindex="-1"
+				id="offcanvasBottomOpere" aria-labelledby="offcanvasBottomLabel">
+				<div class="offcanvas-header">
+					<h5 class="offcanvas-title" id="offcanvasBottomLabel">Modifica
+						opera</h5>
+					<button type="button" class="btn-close bg-light"
+						data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
+				<!-- Lista Opere -->
+				<div class="offcanvas-body small">
+					<div th:each="opera : ${opere}">
+						<a th:href="@{'/admin/modificaOpera' + '/' + ${opera.id}}"
+							class="btn bg-transparent text-white lead"
+							th:text="${opera.titolo}">Id-opera</a>
+					</div>
+				</div>
+			</div>
+
+
+		</main>
+
+
+		<div th:replace="fragments/footer.html :: footer"></div>
+	</div>
+</body>
+</html>
